@@ -1,4 +1,52 @@
 package com.example.car_rental_back_end.services;
 
+import com.example.car_rental_back_end.models.Booking;
+import com.example.car_rental_back_end.models.Car;
+import com.example.car_rental_back_end.models.Customer;
+import com.example.car_rental_back_end.repositories.BookingRepository;
+import com.example.car_rental_back_end.repositories.CarRepository;
+import com.example.car_rental_back_end.repositories.CustomerRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
+@Service
 public class BookingService {
+
+    public final BookingRepository bookingRepo;
+    public final CustomerRepository customerRepo;
+    public final CarRepository carRepo;
+
+    public BookingService(BookingRepository bookingRepo, CustomerRepository customerRepo, CarRepository carRepo) {
+        this.bookingRepo = bookingRepo;
+        this.customerRepo = customerRepo;
+        this.carRepo = carRepo;
+    }
+
+    public Booking createBooking(Long customerId, Long carId) {
+        Customer customer = customerRepo.findById(customerId).orElseThrow();
+        Car car = carRepo.findById(carId).orElseThrow();
+        Date startDate = new Date();
+        Date endDate = new Date();
+        int price = 500;
+        boolean bookingStatus = false;
+
+        Booking booking = new Booking();
+        booking.setCustomer(customer);
+        booking.setCar(car);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
+        booking.setTotalPrice(price);
+        booking.setBookingStatus(bookingStatus);
+        return bookingRepo.save(booking);
+    }
+
+    public Booking getBookingById(Long id) {
+        return bookingRepo.findById(id).orElseThrow();
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingRepo.findAll();
+    }
 }
