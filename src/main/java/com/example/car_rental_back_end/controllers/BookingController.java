@@ -17,8 +17,8 @@ public class BookingController {
     }
 
     @PostMapping
-    public Booking createBooking(@RequestParam Long customerId, @RequestParam Long carId) {
-        return bookingService.createBooking(customerId, carId);
+    public Booking createBooking(@RequestParam Long customerId, @RequestParam Long carId, @RequestParam String startDate, @RequestParam String endDate) {
+        return bookingService.createBooking(customerId, carId, startDate, endDate);
     }
 
     @GetMapping("/{id}")
