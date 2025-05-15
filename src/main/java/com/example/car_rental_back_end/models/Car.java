@@ -3,6 +3,8 @@ package com.example.car_rental_back_end.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name = "Cars")
 public class Car {
     @Id
@@ -15,11 +17,10 @@ public class Car {
     private Integer dailyRate;
     private String imageUrl = "https://images.cars.com/cldstatic/wp-content/uploads/1673941437-1425510881103.jpeg";
 
-
-
-    @OneToOne(mappedBy = "car")
+    @OneToMany(mappedBy = "car")
     @JsonIgnore
-    private Booking booking;
+    private List<Booking> bookings;
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -77,11 +78,11 @@ public class Car {
         this.dailyRate = dailyRate;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
