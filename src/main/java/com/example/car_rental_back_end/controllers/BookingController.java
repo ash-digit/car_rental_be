@@ -31,4 +31,10 @@ public class BookingController {
     public List<Booking> getAllBookings() {
         return bookingService.getAllBookings();
     }
+    //     DELETE
+    @DeleteMapping("/{id}")
+    public String deleteBooking(@PathVariable Long id) {
+        bookingService.deleteBooking(id);
+        return String.format("Car with id %d has been deleted", id);
+    }
 }

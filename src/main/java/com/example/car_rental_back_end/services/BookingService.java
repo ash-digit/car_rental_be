@@ -64,4 +64,9 @@ public class BookingService {
 
         return diffInDays * dailyRate;
     }
+
+    //    DELETE
+    public void deleteBooking(Long id){
+        bookingRepo.deleteById(id);
+    }
 }

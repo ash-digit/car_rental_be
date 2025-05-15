@@ -13,10 +13,21 @@ public class Car {
     private String model;
     private Integer year;
     private Integer dailyRate;
+    private String imageUrl = "https://images.cars.com/cldstatic/wp-content/uploads/1673941437-1425510881103.jpeg";
+
+
 
     @OneToOne(mappedBy = "car")
     @JsonIgnore
     private Booking booking;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 
     public Long getId() {
         return id;
