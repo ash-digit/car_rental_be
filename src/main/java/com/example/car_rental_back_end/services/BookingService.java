@@ -26,12 +26,13 @@ public class BookingService {
         this.carRepo = carRepo;
     }
 
-    public Booking createBooking(Long customerId, Long carId, String startDate, String endDate) {
-        Customer customer = customerRepo.findById(customerId).orElseThrow();
-        Car car = carRepo.findById(carId).orElseThrow();
-//        Date startDate = new Date();
-//        Date endDate = new Date();
-        int price = (int) getCarPrice(startDate, endDate, 100);
+    public Booking createBooking(String customerId, String carId, String startDate, String endDate) {
+      Long customerIdLong = Long.parseLong(customerId);
+      Long carIdLong = Long.parseLong(carId);
+
+        Customer customer = customerRepo.findById(customerIdLong).orElseThrow();
+        Car car = carRepo.findById(carIdLong).orElseThrow();
+        int price = (int) getCarPrice(startDate, endDate, car.getDailyRate());
 
         boolean bookingStatus = false;
 
@@ -42,6 +43,8 @@ public class BookingService {
         booking.setEndDate(endDate);
         booking.setTotalPrice(price);
         booking.setBookingStatus(bookingStatus);
+        car.setAvailability(false);
+        customer.setBookingStatus(true);
         return bookingRepo.save(booking);
     }
 
@@ -54,12 +57,6 @@ public class BookingService {
     }
 
     public long getCarPrice(String startDate, String endDate, int dailyRate){
-//        String[] startDateSplit = startDate.split("-");
-//        String[] endDateSplit = endDate.split("-");
-//
-//        int yearDifference = Integer.parseInt(endDateSplit[0]) - Integer.parseInt(startDateSplit[0]);
-//        int monthDifference = Integer.parseInt(endDateSplit[0]) - Integer.parseInt(startDateSplit[0]);
-
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
 

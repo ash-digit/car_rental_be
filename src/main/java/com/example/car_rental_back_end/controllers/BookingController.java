@@ -1,5 +1,6 @@
 package com.example.car_rental_back_end.controllers;
 
+import com.example.car_rental_back_end.dtos.BookingRequest;
 import com.example.car_rental_back_end.models.Booking;
 import com.example.car_rental_back_end.services.BookingService;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class BookingController {
     }
 
     @PostMapping
-    public Booking createBooking(@RequestParam Long customerId, @RequestParam Long carId, @RequestParam String startDate, @RequestParam String endDate) {
-        return bookingService.createBooking(customerId, carId, startDate, endDate);
+    public Booking createBooking(@RequestBody BookingRequest bookingRequest) {
+        return bookingService.createBooking(bookingRequest.getCustomerId(), bookingRequest.getCarId(), bookingRequest.getStartDate(), bookingRequest.getEndDate());
     }
 
     @GetMapping("/{id}")
