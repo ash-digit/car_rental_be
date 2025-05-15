@@ -10,6 +10,7 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
+    private Boolean bookingStatus;
 
     @OneToOne(mappedBy = "customer")
     @JsonIgnore
@@ -45,5 +46,13 @@ public class Customer {
 
     public void setBooking(Booking booking) {
         this.booking = booking;
+    }
+
+    public Boolean getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(Boolean bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 }
