@@ -35,7 +35,7 @@ public class BookingService {
         Car car = carRepo.findById(carIdLong).orElseThrow();
         int price = (int) getCarPrice(startDate, endDate, car.getDailyRate());
 
-        boolean bookingStatus = false;
+        boolean bookingStatus = true;
 
         Booking booking = new Booking();
         booking.setCustomer(customer);
