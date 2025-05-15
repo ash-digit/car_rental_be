@@ -14,11 +14,11 @@ public class Booking {
     private Integer totalPrice;
     private Boolean bookingStatus;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 

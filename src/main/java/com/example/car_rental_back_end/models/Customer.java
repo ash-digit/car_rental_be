@@ -3,6 +3,8 @@ package com.example.car_rental_back_end.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity (name = "Customers")
 public class Customer {
     @Id
@@ -12,9 +14,9 @@ public class Customer {
     private String email;
     private Boolean bookingStatus;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer")
     @JsonIgnore
-    private Booking booking;
+    private List<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -40,12 +42,12 @@ public class Customer {
         this.email = email;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Boolean getBookingStatus() {
