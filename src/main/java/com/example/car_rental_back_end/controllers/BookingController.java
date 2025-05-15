@@ -37,4 +37,10 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return String.format("Car with id %d has been deleted", id);
     }
+    @PatchMapping("/{id}")
+    public  Booking patchBooking(@PathVariable Long id){
+        return bookingService.patchBooking(id);
+    }
+
+
 }

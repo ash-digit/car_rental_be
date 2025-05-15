@@ -8,6 +8,7 @@ import com.example.car_rental_back_end.repositories.CarRepository;
 import com.example.car_rental_back_end.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -69,4 +70,16 @@ public class BookingService {
     public void deleteBooking(Long id){
         bookingRepo.deleteById(id);
     }
+
+    //      PATCH
+    public Booking patchBooking(Long id){
+        Booking booking = bookingRepo.findById(id).orElseThrow();
+        Car car = carRepo.findById(booking.getCar().getId()).orElseThrow();
+        Customer customer = customerRepo.findById(booking.getCustomer().getId()).orElseThrow();
+        customer.setBookingStatus(false);
+        car.setAvailability(true);
+        booking.setBookingStatus(false);
+        return  bookingRepo.save(booking);
+    }
+
 }
